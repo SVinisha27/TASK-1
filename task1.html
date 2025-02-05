@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factorial Calculation with Snowfall Effect</title>
+  <style>
+    body
+ { 
+      font-size:3em;
+      background-color: #2c3e50;
+      color:white ;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container
+   {
+      padding: 20px;
+      font-family:invitation;
+      z-index:2;
+      position: relative;
+    }
+
+    input 
+   {
+      padding: 30px;
+      margin: 5px;
+      font-size: 30px;
+      font-family:gabriola;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+   button
+  {
+     padding: 20px;
+     font-family:gabriola;
+     margin:5px;
+     font-size: 20px;
+     border-radius: 10px;
+     border: 1px solid #ccc;
+}
+    #result {
+      margin-top: 40px;
+      font-size: 1em;
+      font-family:monotype corsiva;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      z-index: 1;
+      color: white;
+      font-size: 24px;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: fall 10s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+    .snowflake:nth-child(odd) {
+      font-size: 30px;
+      animation-duration: 12s;
+    }
+
+    .snowflake:nth-child(even) {
+      font-size: 20px;
+      animation-duration: 15s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Factorial Calculation</h1>
+    <input type="number" id="inputNumber" placeholder="Enter a number" /><br><br>
+    <button onclick="calculateFactorial()">Calculate Factorial</button>
+    <div id="result"></div>
+  </div>
+  <script>
+    function generateSnowflakes() {
+      for (let i = 0; i < 100; i++) {
+        let snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.innerHTML = '❄';
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; 
+        snowflake.style.animationDelay = Math.random() * 5 + 's'; 
+        document.body.appendChild(snowflake);
+      }
+    }
+    generateSnowflakes();
+    function factorialIterative(n) 
+  {
+      let result = 1;
+      for (let i = 1; i <= n; i++) 
+     {
+        result *= i;
+      }
+      return result;
+    }
+     function factorialRecursive(n)
+   {
+      if (n <= 1) return 1;
+      return n * factorialRecursive(n - 1);
+    }
+     function calculateFactorial()
+   {
+      const num = parseInt(document.getElementById('inputNumber').value);
+      
+    if (isNaN(num) || num < 0)
+      {
+        document.getElementById('result').innerText = 'Please enter a valid positive integer.';
+      }
+   else
+     {
+        const resultIterative = factorialIterative(num);
+        const resultRecursive = factorialRecursive(num);
+        document.getElementById('result').innerHTML=`Factorial of ${num} (Iterative): ${resultIterative}<br>
+          Factorial of ${num} (Recursive): ${resultRecursive}`;
+      }
+    }
+  </script>
+</body>
+</html>
